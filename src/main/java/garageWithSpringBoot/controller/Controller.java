@@ -46,10 +46,7 @@ public class Controller {
 	public List<Model> getAllVehicles(){
 		return myRepo.findAll();		
 	}
-	@GetMapping("/vehicle/?={numberOfWheels}")
-	public List<Model> getVehicleByNumberOfWheels(@PathVariable(value = "numberOfWheels") Integer vehicle) {
-		return myRepo.findAll();		
-	}
+	
 	
 	@PutMapping("/vehicle/{id}")
 	public Model updateVehicle(@PathVariable(value = "id") Long vehicleID,
@@ -72,6 +69,10 @@ public class Controller {
 		myRepo.delete(model);
 		return ResponseEntity.ok(model);
 		
+	}
+	@DeleteMapping("/vehicle/")
+	public void  deleteAllVehicles() {
+		myRepo.deleteAll();
 	}
 	
 
