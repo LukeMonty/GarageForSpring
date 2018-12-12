@@ -62,4 +62,5 @@ public class IntergrationTest {
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.name", is("hi")));
 	}
+	
 }
