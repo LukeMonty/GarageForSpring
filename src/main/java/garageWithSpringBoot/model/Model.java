@@ -29,7 +29,7 @@ public class Model implements Serializable {
 	
 	private int numberOfWheels;
 
-	private Integer numberOfSeats;
+	private int numberOfSeats;
 	
 	@Column(nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -40,6 +40,16 @@ public class Model implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	private Date lastModifed;
+	public Model() {
+		
+	}
+	
+	public Model(String name, String type, int numberOfWheels, int numberOfSeats) {
+		this.name = name;
+		this.type = type;
+		this.numberOfWheels = numberOfWheels;
+		this.numberOfSeats = numberOfSeats;
+	}
 
 
 	public Long getId() {
@@ -98,6 +108,9 @@ public class Model implements Serializable {
 	public void setLastModifed(Date lastModifed) {
 		this.lastModifed = lastModifed;
 	}
-
+	
+	public String findByName(Model m) {
+		return m.name;
+	}
 	
 }

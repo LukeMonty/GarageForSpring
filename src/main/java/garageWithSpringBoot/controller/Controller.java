@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,47 +33,45 @@ public class Controller {
 		return myRepo.save(springRepo);
 
 	}
-	
+
 	@GetMapping("/vehicle/{id}")
 	public Model getVehicleById(@PathVariable(value = "id") Long vehicleId) {
-		return myRepo.findById(vehicleId)
-				.orElseThrow(() -> new ResourceNotFoundException("Model","id", vehicleId));
+		return myRepo.findById(vehicleId).orElseThrow(() -> new ResourceNotFoundException("Model", "id", vehicleId));
 	}
-	
-	
-	
+
 	@GetMapping("/vehicle")
-	public List<Model> getAllVehicles(){
-		return myRepo.findAll();		
+	public List<Model> getAllVehicles() {
+
+		return myRepo.findAll();
 	}
-	
-	
+
 	@PutMapping("/vehicle/{id}")
-	public Model updateVehicle(@PathVariable(value = "id") Long vehicleID,
-			@Valid @RequestBody Model vehicleDetails) {
-		Model data = myRepo.findById(vehicleID).orElseThrow(() -> new ResourceNotFoundException("Vehicle", "id", vehicleID));
-	
+	public Model updateVehicle(@PathVariable(value = "id") Long vehicleID, @Valid @RequestBody Model vehicleDetails) {
+		Model data = myRepo.findById(vehicleID)
+				.orElseThrow(() -> new ResourceNotFoundException("Vehicle", "id", vehicleID));
+
 		data.setName(vehicleDetails.getName());
 		data.setNumberOfWheels(vehicleDetails.getNumberOfWheels());
 		data.setNumberOfSeats(vehicleDetails.getNumberOfSeats());
 
 		Model update = myRepo.save(data);
 		return update;
-	
+
 	}
-	
+
 	@DeleteMapping("/vehicle/{id}")
 	public ResponseEntity<?> deletePerson(@PathVariable(value = "id") Long vehicleID) {
-		Model model = myRepo.findById(vehicleID).orElseThrow(() -> new ResourceNotFoundException("Vehicle", "id", vehicleID));
-		
+		Model model = myRepo.findById(vehicleID)
+				.orElseThrow(() -> new ResourceNotFoundException("Vehicle", "id", vehicleID));
+
 		myRepo.delete(model);
 		return ResponseEntity.ok(model);
-		
+
 	}
+
 	@DeleteMapping("/vehicle/")
-	public void  deleteAllVehicles() {
+	public void deleteAllVehicles() {
 		myRepo.deleteAll();
 	}
-	
 
 }
