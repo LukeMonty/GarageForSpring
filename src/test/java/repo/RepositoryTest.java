@@ -51,7 +51,7 @@ public class RepositoryTest {
 		entityManager.persist(model);
 		entityManager.flush();
 
-		assertEquals(2, myRepo.findByNumberOfSeats(2).getNumberOfSeats(), 1);
+		assertEquals(2, myRepo.findByNumberOfSeats(2).get(0).getNumberOfSeats(), 1);
 
 	}
 
@@ -61,8 +61,29 @@ public class RepositoryTest {
 		entityManager.persist(model);
 		entityManager.flush();
 
-		assertEquals(4, myRepo.findByNumberOfWheels(4).getNumberOfWheels(), 1);
+		assertEquals(4, myRepo.findByNumberOfWheels(4).get(0).getNumberOfWheels(), 1);
 
+	}
+	@Test
+	public void findById() {
+		Model model = new Model("hi", "Sports", 4, 2);
+		entityManager.persist(model);
+		entityManager.flush();
+		assertEquals(4, model.getId(),1);
+	}
+	@Test
+	public void findByType() {
+		Model model = new Model("hi", "Sports", 4, 2);
+		entityManager.persist(model);
+		entityManager.flush();
+		assertEquals("Sports", model.getType());
+	}
+	@Test
+	public void findByCreationsDate() {
+		Model model = new Model("hi", "Sports", 4, 2);
+		entityManager.persist(model);
+		entityManager.flush();
+		assertEquals(model.getCreationDate(), model.getCreationDate());
 	}
 
 }
